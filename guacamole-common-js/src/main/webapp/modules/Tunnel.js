@@ -986,9 +986,18 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
                 tunnel.oninstruction(opcode, args);
 
         };
-
+        //GET GUAC_ID and auth token from Browser URL
+        var url_params = window.location.href.split("/")[6].split("?")
+        var conenction_identifier = url_params[0];
+        var token = url_params[1]
+        var new_data = token + "&GUAC_DATA_SOURCE=" + encodeURIComponent("mysql")
+            + "&GUAC_ID="          + encodeURIComponent(conenction_identifier)
+            + "&GUAC_TYPE="        + encodeURIComponent("c")
+            + "&GUAC_WIDTH="       + Math.floor(window.innerWidth)
+            + "&GUAC_HEIGHT="      + Math.floor(window.innerHeight)
+            + "&GUAC_DPI="         + Math.floor("144");
         // Connect socket
-        socket = new WebSocket(tunnelURL + "?" + data, "guacamole");
+        socket = new WebSocket(tunnelURL + "?" + new_data, "guacamole");
 
         socket.onopen = function(event) {
             resetTimers();
