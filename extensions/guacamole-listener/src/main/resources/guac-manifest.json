@@ -1,0 +1,12 @@
+{
+
+    "guacamoleVersion" : "1.5.5",
+
+    "name"      : "Tutorial Listener Extension",
+    "namespace" : "guac-listener-tutorial",
+
+    "listeners" : [
+        "org.apache.guacamole.event.TutorialListener"
+    ]
+
+}
