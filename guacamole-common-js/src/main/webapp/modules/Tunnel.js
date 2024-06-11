@@ -995,7 +995,7 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
             + "&GUAC_TYPE="        + encodeURIComponent("c")
             + "&GUAC_WIDTH="       + Math.floor(window.innerWidth)
             + "&GUAC_HEIGHT="      + Math.floor(window.innerHeight)
-            + "&GUAC_DPI="         + Math.floor("144");
+            + "&GUAC_DPI="         + Math.floor("100");
         // Connect socket
         socket = new WebSocket(tunnelURL + "?" + new_data, "guacamole");
 
