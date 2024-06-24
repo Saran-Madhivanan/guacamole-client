@@ -1004,7 +1004,7 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
         };
 
         socket.onclose = function(event) {
-
+            console.log("Socket closed");
             // Pull status code directly from closure reason provided by Guacamole
             if (event.reason)
                 close_tunnel(new Guacamole.Status(parseInt(event.reason), event.reason));
@@ -1036,6 +1036,7 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
     };
 
     this.disconnect = function() {
+        console.log("Connection Killed")
         close_tunnel(new Guacamole.Status(Guacamole.Status.Code.SUCCESS, "Manually closed."));
     };
 
