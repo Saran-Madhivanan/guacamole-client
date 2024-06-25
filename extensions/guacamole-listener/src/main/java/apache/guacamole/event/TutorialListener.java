@@ -8,13 +8,12 @@ import java.net.URL;
 
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.net.event.TunnelCloseEvent;
-import org.apache.guacamole.net.event.TunnelConnectEvent;
 import org.apache.guacamole.net.event.listener.Listener;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonArray;
 
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
@@ -80,7 +79,7 @@ public class TutorialListener implements Listener {
                 }
             }
 
-            System.out.println("CONNECTION STATUS ->" + connection.getResponseCode());
+            System.out.println("CONNECTION STATUS -> " + connection.getResponseCode() + url);
             // if(connection.getResponseCode() != 200 && connection.getResponseCode() != 204){
             //     connection.disconnect();
             //     throw new Exception("Connection failed: Unable to connect to the server.");
@@ -130,11 +129,13 @@ public class TutorialListener implements Listener {
     }
 
     public void sendSecurdenRequest(String connection_id, String tunnel_id){
-        String url = SECURDEN_URL +"/accountmanagement/terminate_guacamole_web_rdp";
+        String url = SECURDEN_URL +"/audit/guacamole_manage_active_remote_session";
         JsonObject json = new JsonObject();
         json.addProperty("connection_id", connection_id);
         json.addProperty("tunnel_id", tunnel_id);
-        String data = json.toString();
+        // JsonObject Jsondata = new JsonObject();
+        // Jsondata.addProperty("GUACAMOLE_INPUT", json.toString());
+        String data = "GUACAMOLE_INPUT="+json.toString();
         sendRequests(url, "POST", data, null, null);
     }
 
