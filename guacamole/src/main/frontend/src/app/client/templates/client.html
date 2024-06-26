@@ -50,7 +50,7 @@
         <div class="menu-content" ng-if="menu.shown" guac-touch-drag="menuDrag">
 
             <!-- Stationary header -->
-            <div class="header">
+            <!-- <div class="header">
                 <h2 ng-hide="rootConnectionGroups">{{ getName(clientGroup) }}</h2>
                 <h2 class="connection-select-menu" ng-show="rootConnectionGroups">
                     <guac-menu menu-title="getName(clientGroup)" interactive="true">
@@ -79,7 +79,7 @@
                     </guac-menu>
                 </div>
                 <guac-user-menu local-actions="clientMenuActions"></guac-user-menu>
-            </div>
+            </div> -->
 
             <!-- Scrollable body -->
             <div class="menu-body" guac-touch-drag="visibleMenuDrag" guac-scroll="menu.scrollState">
@@ -202,11 +202,11 @@
         <div class="menu-content">
 
             <!-- Stationary header -->
-            <div class="header">
+            <!-- <div class="header">
                 <h2>{{filesystemMenuContents.name}}</h2>
                 <button class="upload button" guac-upload="uploadFiles">{{'CLIENT.ACTION_UPLOAD_FILES' | translate}}</button>
                 <button class="back" ng-click="hideFilesystemMenu()">{{'CLIENT.ACTION_NAVIGATE_BACK' | translate}}</button>
-            </div>
+            </div> -->
 
             <!-- Breadcrumbs -->
             <div class="header breadcrumbs"><div
