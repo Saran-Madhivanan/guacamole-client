@@ -1,6 +1,7 @@
 package org.apache.guacamole.event;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,7 +31,6 @@ import com.google.gson.JsonParser;
 public class TutorialListener implements Listener {
 
     private static final String BASE_GUACAMOLE_URL = "http://localhost:8080/guacamole";
-    private String SECURDEN_URL = null;
 
     // private static final Logger logger = 
     //      LoggerFactory.getLogger(TutorialListener.class);
@@ -43,8 +43,6 @@ public class TutorialListener implements Listener {
         //       .getTunnel().getUUID()));
         // }
         if (event instanceof TunnelCloseEvent) {
-            System.out.println(" Tunnel Close Event  UUID " + String.valueOf(((TunnelCloseEvent) event)
-            .getTunnel().getUUID()));
             String tunnel_id = String.valueOf(((TunnelCloseEvent) event).getTunnel().getUUID());
             String authtoken = getAuthtoken();
             String connectionID = getConnectionId(authtoken, tunnel_id);
@@ -57,19 +55,19 @@ public class TutorialListener implements Listener {
     public static Properties readPropertiesFile(String fileName) throws IOException {
         FileInputStream fis = null;
         Properties prop = null;
-              try {
-                  fis = new FileInputStream(fileName);
-                  prop = new Properties();
-                  prop.load(fis);
-              } catch(FileNotFoundException fnfe) {
-                  fnfe.printStackTrace();
-              } catch(IOException ioe) {
-                  ioe.printStackTrace();
-              } finally {
-                  fis.close();
-              }
-              return prop;
-          }
+        try {
+            fis = new FileInputStream(fileName);
+            prop = new Properties();
+            prop.load(fis);
+        } catch(FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            fis.close();
+        }
+        return prop;
+    }
 
     public String sendRequests(String to_url, String method, String data, String params, String header_content, Boolean is_securden_request){
         String return_response = "";
@@ -157,31 +155,32 @@ public class TutorialListener implements Listener {
 
     public String getFilePropertyValue(String property_name) throws IOException{
         String property_value = "";
-        String current_dir = System.getProperty("user.dir");
+        String current_dir = "";
+        try {
+            File jarFile = new File(TutorialListener.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            current_dir = jarFile.getParent();
+        } catch (Exception e) {
+
+        }
         String file_name = current_dir + FileSystems.getDefault().getSeparator() +"guacamole-sec.properties";
         Properties file_prop = readPropertiesFile(file_name);     
-        property_value = file_prop.getProperty("property_name");
+        property_value = file_prop.getProperty(property_name);
         return property_value;
     }
 
     public void sendSecurdenRequest(String connection_id, String tunnel_id){
         String SECURDEN_AUTH_TOKEN = "";
+        String SECURDEN_URL = "";
         try{
-            if(SECURDEN_URL == null){
-                SECURDEN_URL = getFilePropertyValue("PRIMARY_SERVER_ADDRESS");
-            }
+            SECURDEN_URL = getFilePropertyValue("PRIMARY_SERVER_ADDRESS");
             SECURDEN_AUTH_TOKEN = getFilePropertyValue("AUTHTOKEN");
         }catch(Exception e){
             System.out.println("READ FILE PROPERTY ERROR" + e.getMessage());
         }
-        System.out.println(SECURDEN_URL + "SECURDEN_URL");
-        System.out.println(SECURDEN_AUTH_TOKEN + "SECURDEN_AUTH_TOKEN");
         String url = SECURDEN_URL +"/audit/guacamole_manage_active_remote_session";
         JsonObject json = new JsonObject();
         json.addProperty("connection_id", connection_id);
         json.addProperty("tunnel_id", tunnel_id);
-        // JsonObject Jsondata = new JsonObject();
-        // Jsondata.addProperty("GUACAMOLE_INPUT", json.toString());
         String data = "GUACAMOLE_INPUT="+json.toString();
         sendRequests(url, "POST", data, null, SECURDEN_AUTH_TOKEN, true);
     }
