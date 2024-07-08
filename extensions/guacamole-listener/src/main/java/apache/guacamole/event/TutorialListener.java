@@ -10,7 +10,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.FileSystems;
+import java.security.cert.X509Certificate;
 import java.util.Properties;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.net.event.TunnelCloseEvent;
@@ -78,7 +85,9 @@ public class TutorialListener implements Listener {
             if(params!=null &&  params.length() > 0){
                 to_url+=params;
             }
-
+            if(is_securden_request){
+                disableSSLVerification();
+            }
             URL url = new URL(to_url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(method);
@@ -86,13 +95,12 @@ public class TutorialListener implements Listener {
             // Set Headers
             if(header_content!=null){
                 if(is_securden_request){
-                    connection.setRequestProperty("authtoken",header_content);
+                    connection.setRequestProperty("GUACAMOLEAUTHTOKEN", header_content);
                 }
                 else{
                     connection.setRequestProperty("Content-Type", header_content);
                 }
             }
-
             // To Send Data - Set as true for receiving data
             connection.setDoOutput(true);
 
@@ -185,4 +193,27 @@ public class TutorialListener implements Listener {
         sendRequests(url, "POST", data, null, SECURDEN_AUTH_TOKEN, true);
     }
 
+    public static void disableSSLVerification() throws Exception {
+        // Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[]{
+            new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {}
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {}
+            }
+        };
+
+        // Install the all-trusting trust manager
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = (hostname, session) -> true;
+
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+    }
 }
