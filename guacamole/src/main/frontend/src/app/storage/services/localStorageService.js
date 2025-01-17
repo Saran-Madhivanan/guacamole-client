@@ -65,8 +65,9 @@ angular.module('storage').provider('localStorageService', [function localStorage
 
         // Additionally store value within localStorage if allowed
         try {
-            if (window.localStorage)
-                localStorage.setItem(key, data);
+            if (window.sessionStorage){
+                sessionStorage.setItem(key, data);
+            }
         }
         catch (ignore) {}
 
@@ -88,8 +89,9 @@ angular.module('storage').provider('localStorageService', [function localStorage
 
         // Remove key from localStorage if allowed
         try {
-            if (window.localStorage)
-                localStorage.removeItem(key);
+            if (window.sessionStorage){
+                sessionStorage.removeItem(key);
+            }
         }
         catch (ignore) {}
 
@@ -114,8 +116,9 @@ angular.module('storage').provider('localStorageService', [function localStorage
 
         // Attempt to refresh internal storage from localStorage
         try {
-            if (window.localStorage)
-                storedItems[key] = localStorage.getItem(key);
+            if (window.sessionStorage){
+                storedItems[key] = sessionStorage.getItem(key);
+            }
         }
         catch (ignore) {}
 
