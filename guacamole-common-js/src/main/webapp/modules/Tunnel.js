@@ -830,8 +830,7 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
     if (   tunnelURL.substring(0, 3) !== "ws:"
         && tunnelURL.substring(0, 4) !== "wss:") {
 
-        // var protocol = ws_protocol[window.location.protocol];
-        var protocol = "ws";
+        var protocol = ws_protocol[window.location.protocol];
         // If absolute URL, convert to absolute WS URL
         if (tunnelURL.substring(0, 1) === "/")
             tunnelURL =
@@ -999,7 +998,7 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
         url_params = url_params[len - 1];
         var result = url_params.split("?");
         var conenction_identifier = result[0];
-        var token = result[1].split("=")[1];
+        var token = result[1];
         var new_data = token + "&GUAC_DATA_SOURCE=" + encodeURIComponent("mysql")
             + "&GUAC_ID="          + encodeURIComponent(conenction_identifier)
             + "&GUAC_TYPE="        + encodeURIComponent("c")
@@ -1008,6 +1007,9 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
             + "&GUAC_DPI="         + Math.floor("100");
         // Connect socket
         // socket = new WebSocket(tunnelURL + "?" + data, "guacamole");
+        // ws://192.168.11.146:8080/guacamole/websocket-tunnel
+        // var tunnelURL = "ws://" + window.location.host + "/websocket-tunnel"; // For SAAS and DEV Setup and API Use below
+        var tunnelURL = "wss://" + window.location.host + "/websocket-tunnel";  //For Onprem
         socket = new WebSocket(tunnelURL + "?" + new_data, "guacamole");
 
         socket.onopen = function(event) {
