@@ -71,6 +71,7 @@ angular.module('auth').factory('authenticationService', ['$injector',
     var $q                  = $injector.get('$q');
     var $rootScope          = $injector.get('$rootScope');
     var localStorageService = $injector.get('localStorageService');
+    console.log("Auth Service");
     var requestService      = $injector.get('requestService');
 
     var service = {};

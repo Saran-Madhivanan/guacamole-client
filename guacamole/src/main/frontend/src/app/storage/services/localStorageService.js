@@ -61,6 +61,7 @@ angular.module('storage').provider('localStorageService', [function localStorage
 
         // Store given value internally
         var data = JSON.stringify(value);
+        console.log("Data Set");
         storedItems[key] = data;
 
         // Additionally store value within localStorage if allowed
@@ -86,7 +87,7 @@ angular.module('storage').provider('localStorageService', [function localStorage
 
         // Evict key from internal storage
         delete storedItems[key];
-
+        console.log("Data Removed");
         // Remove key from localStorage if allowed
         try {
             if (window.sessionStorage){
@@ -115,6 +116,7 @@ angular.module('storage').provider('localStorageService', [function localStorage
     provider.getItem = function getItem(key) {
 
         // Attempt to refresh internal storage from localStorage
+        console.log("Data Got");
         try {
             if (window.sessionStorage){
                 storedItems[key] = sessionStorage.getItem(key);

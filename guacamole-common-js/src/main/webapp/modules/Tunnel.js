@@ -987,9 +987,19 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
 
         };
         //GET GUAC_ID and auth token from Browser URL
-        var url_params = window.location.href.split("/")[6].split("?")
-        var conenction_identifier = url_params[0];
-        var token = url_params[1]
+        // var url_params = window.location.href.split("/")[6].split("?") - For API & Dev Purposes
+        // API URL - http://192.168.11.232:8080/guacamole/#/client/64?token=1188A5E9BB666341B23186B12BDE638914E7ABBC1ED20DFC9C9C94234CA39F19
+        // SECURDEN URL SAAS -  https://testorg143.unified-pam.com:5624/#/client/26?token=EBC59FAF633EDE131E13EB1C275E76EAB00392C7BD9EA8B6E4A31AB272BFB9CA
+        // var url =  window.location.href.split("/");
+
+
+        var url = window.location.href;
+        var url_params = url.split("/")
+        var len = url_params.length; 
+        url_params = url_params[len - 1];
+        var result = url_params.split("?");
+        var conenction_identifier = result[0];
+        var token = result[1].split("=")[1];
         var new_data = token + "&GUAC_DATA_SOURCE=" + encodeURIComponent("mysql")
             + "&GUAC_ID="          + encodeURIComponent(conenction_identifier)
             + "&GUAC_TYPE="        + encodeURIComponent("c")
@@ -997,6 +1007,7 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
             + "&GUAC_HEIGHT="      + Math.floor(window.innerHeight)
             + "&GUAC_DPI="         + Math.floor("100");
         // Connect socket
+        // socket = new WebSocket(tunnelURL + "?" + data, "guacamole");
         socket = new WebSocket(tunnelURL + "?" + new_data, "guacamole");
 
         socket.onopen = function(event) {
