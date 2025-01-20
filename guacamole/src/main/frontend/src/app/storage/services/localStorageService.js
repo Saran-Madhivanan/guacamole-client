@@ -116,7 +116,7 @@ angular.module('storage').provider('localStorageService', [function localStorage
     provider.getItem = function getItem(key) {
 
         // Attempt to refresh internal storage from localStorage
-        console.log("Data Got");
+        // console.log("Data Got");
         try {
             if (window.sessionStorage){
                 storedItems[key] = sessionStorage.getItem(key);

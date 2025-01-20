@@ -830,8 +830,8 @@ Guacamole.WebSocketTunnel = function(tunnelURL) {
     if (   tunnelURL.substring(0, 3) !== "ws:"
         && tunnelURL.substring(0, 4) !== "wss:") {
 
-        var protocol = ws_protocol[window.location.protocol];
-
+        // var protocol = ws_protocol[window.location.protocol];
+        var protocol = "ws";
         // If absolute URL, convert to absolute WS URL
         if (tunnelURL.substring(0, 1) === "/")
             tunnelURL =
