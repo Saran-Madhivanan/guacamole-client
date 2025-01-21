@@ -59,6 +59,7 @@
 
         "ACTION_DISCONNECT"                : "Desconnecta",
         "ACTION_RECONNECT"                 : "Torneu a connectar",
+        "ACTION_SHOW_CLIPBOARD"            : "Feu clic per veure les dades del porta-retalls.",
         "ACTION_UPLOAD_FILES"              : "Carregueu fitxers",
 
         "DIALOG_HEADER_CONNECTING"       : "Connectant",
@@ -143,7 +144,6 @@
         "TEXT_CLIENT_STATUS_DISCONNECTED" : "Heu estat desconnectats.",
         "TEXT_CLIENT_STATUS_UNSTABLE"     : "La connexió de xarxa al servidor Guacamole sembla inestable.",
         "TEXT_CLIENT_STATUS_WAITING"      : "Connectat a Guacamole. Esperant resposta ...",
-        "TEXT_CLIPBOARD_AWAITING_FOCUS"   : "Feu clic per veure les dades del porta-retalls...",
         "TEXT_FILE_TRANSFER_PROGRESS"     : "{PROGRESS} {UNIT, select, b{B} kb{KB} mb{MB} gb{GB} other{}}",
         "TEXT_RECONNECT_COUNTDOWN"        : "Re-conectant en {REMAINING} {REMAINING, plural, one{segon} other{segons}}...",
         "TEXT_USER_JOINED"                : "{USERNAME} s'ha afegit a la connexió.",
@@ -343,6 +343,7 @@
         "FIELD_HEADER_CREATE_NEW_CONNECTIONS"        : "Crear noves connexions:",
         "FIELD_HEADER_CREATE_NEW_CONNECTION_GROUPS"  : "Crear grups de connexió nous:",
         "FIELD_HEADER_CREATE_NEW_SHARING_PROFILES"   : "Crear nous perfils per compartir:",
+        "FIELD_HEADER_USER_DISABLED"                 : "Inici de sessió desactivat:",
         "FIELD_HEADER_USERNAME"                      : "Nom d'usuari:",
 
         "HELP_NO_USER_GROUPS" : "Actualment, aquest usuari no pertany a cap grup. Amplieu aquesta secció per afegir-lo a grups.",
@@ -373,6 +374,7 @@
         "FIELD_HEADER_CREATE_NEW_CONNECTIONS"        : "@:MANAGE_USER.FIELD_HEADER_CREATE_NEW_CONNECTIONS",
         "FIELD_HEADER_CREATE_NEW_CONNECTION_GROUPS"  : "@:MANAGE_USER.FIELD_HEADER_CREATE_NEW_CONNECTION_GROUPS",
         "FIELD_HEADER_CREATE_NEW_SHARING_PROFILES"   : "@:MANAGE_USER.FIELD_HEADER_CREATE_NEW_SHARING_PROFILES",
+        "FIELD_HEADER_USER_GROUP_DISABLED"           : "Desactivat:",
         "FIELD_HEADER_USER_GROUP_NAME"               : "Nom del grup:",
 
         "HELP_NO_USER_GROUPS"        : "Actualment aquest grup no pertany a cap grup. Amplieu aquesta secció per afegir grups.",
@@ -419,6 +421,8 @@
         "FIELD_HEADER_CONTAINER"       : "Nom del contenidor:",
         "FIELD_HEADER_CREATE_RECORDING_PATH"  : "Crea automàticament la ruta de gravació:",
         "FIELD_HEADER_CREATE_TYPESCRIPT_PATH" : "Crea automàticament la ruta de typescript:",
+        "FIELD_HEADER_DISABLE_COPY"    : "Desactiva la còpia des del terminal:",
+        "FIELD_HEADER_DISABLE_PASTE"   : "Desactiva l'enganxament del client:",
         "FIELD_HEADER_EXEC_COMMAND"    : "Comanda (exec):",
         "FIELD_HEADER_FONT_NAME"       : "Nom del tipus de lletra:",
         "FIELD_HEADER_FONT_SIZE"       : "Mida de la lletra:",
@@ -465,6 +469,7 @@
 
         "SECTION_HEADER_AUTHENTICATION" : "Autenticació",
         "SECTION_HEADER_BEHAVIOR"       : "Comportament del terminal",
+        "SECTION_HEADER_CLIPBOARD"      : "Porta-retalls",
         "SECTION_HEADER_CONTAINER"      : "Contenidor",
         "SECTION_HEADER_DISPLAY"        : "Pantalla",
         "SECTION_HEADER_RECORDING"      : "Gravació de la pantalla",

@@ -34,7 +34,7 @@ import org.apache.guacamole.net.auth.Credentials;
  * by that user.
  */
 public class SSOAuthenticatedUser extends AbstractAuthenticatedUser {
-
+    
     /**
      * Reference to the authentication provider associated with this
      * authenticated user.

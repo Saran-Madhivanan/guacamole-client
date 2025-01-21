@@ -22,8 +22,6 @@ package org.apache.guacamole.auth.postgresql.conf;
 import java.io.File;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.auth.jdbc.JDBCEnvironment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.guacamole.auth.jdbc.security.PasswordPolicy;
 import org.apache.ibatis.session.SqlSession;
 
@@ -32,11 +30,6 @@ import org.apache.ibatis.session.SqlSession;
  * properties specifically for PostgreSQL.
  */
 public class PostgreSQLEnvironment extends JDBCEnvironment {
-
-    /**
-     * Logger for this class.
-     */
-    private static final Logger logger = LoggerFactory.getLogger(PostgreSQLEnvironment.class);
 
     /**
      * The default host to connect to, if POSTGRESQL_HOSTNAME is not specified.
